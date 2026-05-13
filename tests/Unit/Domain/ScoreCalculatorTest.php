@@ -1,6 +1,11 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
+use App\Domain\Entities\Contact;
+use App\Domain\ValueObjects\Email;
+use App\Domain\ValueObjects\Phone;
+use App\Domain\Services\ScoreCalculator;
+
 class ScoreCalculatorTest extends TestCase
 {
     public function test_calculate_score_for_corporate_email()
