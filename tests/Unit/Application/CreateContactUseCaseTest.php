@@ -5,6 +5,8 @@ namespace Tests\Unit\Application;
 use PHPUnit\Framework\TestCase;
 use App\Domain\Entities\Contact;
 use App\Domain\Repositories\ContactRepositoryInterface;
+use App\Application\UseCases\CreateContactUseCase;
+
 
 
 class CreateContactUseCaseTest extends TestCase
