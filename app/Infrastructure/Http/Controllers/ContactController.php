@@ -3,8 +3,8 @@
 namespace App\Infrastructure\Http\Controllers;
 
 use App\Application\UseCases\CreateContactUseCase;
-use Illuminate\Http\Request as ContactRequest;
-use App\Http\Controllers\Controller;
+use App\Infrastructure\Http\Requests\ContactRequest;
+use App\Infrastructure\Http\Controllers\Controller;
 
 class ContactController extends Controller
 {
@@ -12,10 +12,24 @@ class ContactController extends Controller
 
     public function store(ContactRequest $request)
     {
-        // Ejecuta el caso de uso con datos validados
-        $contact = $this->createContactUseCase->execute($request->validated());
 
-        // Devuelve el recurso en formato JSON
-        return response()->json($contact, 201);
+        $data = $request->validated();
+        $contact = $this->createContactUseCase->execute(
+            $data['name'],
+            $data['email'],
+            $data['phone'] ?? null
+        );
+
+        return response()->json([
+            'data' => [
+                'id'           => $contact->id,
+                'name'         => $contact->name,
+                'email'        => $contact->email->value(),
+                'phone'        => $contact->phone->value(),
+                'status'       => $contact->status->value(),
+                'score'        => $contact->score,
+                'processed_at' => $contact->processedAt?->format('Y-m-d H:i:s'),
+            ]
+        ], 201);
     }
 }

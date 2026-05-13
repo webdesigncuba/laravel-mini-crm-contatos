@@ -16,6 +16,7 @@ class Contact
         public int $score = 0,
         public Status $status = new Status('pending'),
         public ?DateTimeInterface $processedAt = null,
+        public ?int $id = null,
     ) {}
 
     public function markAsProcessing(): void
