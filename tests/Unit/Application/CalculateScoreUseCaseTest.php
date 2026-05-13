@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Application;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use App\Application\UseCases\CalculateScoreUseCase;
 use App\Domain\Entities\Contact;
 use App\Domain\Repositories\ContactRepositoryInterface;
@@ -43,8 +43,7 @@ class CalculateScoreUseCaseTest extends TestCase
         // - Score calculado corretamente
         $this->assertEquals(60, $updatedContact->score);
         // - Status atualizado para "active"
-        $this->assertEquals('active', $updatedContact->status);
-        // - processed_at preenchido
+        $this->assertEquals('active', $updatedContact->status->value());
         $this->assertNotNull($updatedContact->processed_at);
 
         // Verificamos que o evento foi disparado
