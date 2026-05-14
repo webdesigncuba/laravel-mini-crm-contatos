@@ -2,12 +2,14 @@
 
 namespace App\Infrastructure\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Database\Factories\ContactFactory;
 
 class Contact extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'contacts';
 
@@ -24,4 +26,10 @@ class Contact extends Model
         'score'        => 'integer',
         'processed_at' => 'datetime',
     ];
+
+
+    protected static function newFactory()
+    {
+        return ContactFactory::new();
+    }
 }

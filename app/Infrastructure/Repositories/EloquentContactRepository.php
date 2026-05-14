@@ -4,6 +4,9 @@ namespace App\Infrastructure\Repositories;
 
 use App\Domain\Entities\Contact;
 use App\Domain\Repositories\ContactRepositoryInterface;
+use App\Domain\ValueObjects\Email;
+use App\Domain\ValueObjects\Phone;
+use App\Domain\ValueObjects\Status;
 use App\Infrastructure\Models\Contact as ModelsContact;
 
 class EloquentContactRepository implements ContactRepositoryInterface
@@ -34,6 +37,7 @@ class EloquentContactRepository implements ContactRepositoryInterface
             'score'       => $contact->score,
             'processed_at'=> $contact->processedAt?->format('Y-m-d H:i:s'),
         ]);
+        $model->refresh();
 
         return $this->toEntity($model);
     }
@@ -71,11 +75,11 @@ class EloquentContactRepository implements ContactRepositoryInterface
         return new Contact(
             id: $model->id,
             name: $model->name,
-            email: new \App\Domain\ValueObjects\Email($model->email),
-            phone: new \App\Domain\ValueObjects\Phone($model->phone),
-            status: new \App\Domain\ValueObjects\Status($model->status),
+            email: new Email($model->email),
+            phone: new Phone($model->phone),
+            status: new Status($model->status),
             score: $model->score,
-            processedAt: $model->processed_at,
+            processedAt: $model->processed_at ? new \DateTimeImmutable($model->processed_at) : null,
         );
     }
 }

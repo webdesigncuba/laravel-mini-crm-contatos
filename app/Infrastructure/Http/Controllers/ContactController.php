@@ -13,6 +13,7 @@ use App\Infrastructure\Models\Contact as ModelsContact;
 class ContactController extends Controller
 {
 
+
     public function __construct(
         private CreateContactUseCase $createContactUseCase,
         private UpdateContactUseCase $updateContactUseCase,
@@ -58,7 +59,11 @@ class ContactController extends Controller
 
     public function destroy(int $id)
     {
-        $this->repository->delete($id);
+
+        $contact = $this->repository->findById($id);
+
+        $this->repository->delete($contact);
+
         return response()->json(null, 204);
     }
 

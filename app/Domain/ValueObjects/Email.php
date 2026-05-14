@@ -25,4 +25,9 @@ class Email
     {
         return str_ends_with($this->value, '.br');
     }
+
+    public function __toString(): string
+    {
+        return $this->value;
+    }
 }

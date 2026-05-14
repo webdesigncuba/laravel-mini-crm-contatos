@@ -6,9 +6,13 @@ class Phone
 {
     public function __construct(private string $value)
     {
-        if (!preg_match('/^\d{10,11}$/', $value)) {
-            throw new \InvalidArgumentException("Teléfone inválido");
+        $digits = preg_replace('/\D/', '', $value);
+
+        if (!preg_match('/^\d{10,11}$/', $digits)) {
+            throw new \InvalidArgumentException("Telefone inválido");
         }
+
+        $this->value = $digits;
     }
 
     public function value(): string
@@ -24,5 +28,10 @@ class Phone
     public function isFromSaoPaulo(): bool
     {
         return in_array($this->ddd(), range(11, 19));
+    }
+
+    public function __toString()
+    {
+        return $this->value;
     }
 }
