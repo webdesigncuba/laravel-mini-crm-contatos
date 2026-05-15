@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 use Illuminate\Support\Facades\Log;
 
 class ContactScoreProcessedLogTest extends TestCase
@@ -14,7 +14,7 @@ class ContactScoreProcessedLogTest extends TestCase
         $contact = new \App\Domain\Entities\Contact(
             name: 'Test',
             email: new \App\Domain\ValueObjects\Email('test@example.com'),
-            phone: new \App\Domain\ValueObjects\Phone('123456'),
+            phone: new \App\Domain\ValueObjects\Phone('12345678911'),
             id: 1
         );
 
