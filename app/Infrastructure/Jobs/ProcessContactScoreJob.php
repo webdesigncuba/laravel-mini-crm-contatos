@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Infrastructure\Jobs;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -9,13 +11,13 @@ use App\Domain\Events\ContactScoreProcessed;
 use App\Domain\Repositories\ContactRepositoryInterface;
 use App\Domain\Services\ScoreCalculator;
 
-class ProcessContacScoreJob implements ShouldQueue
+class ProcessContactScoreJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private int $contactId;
+    public int $contactId;
 
-    public function __consruct(int $contactId)
+    public function __construct(int $contactId)
     {
         $this->contactId = $contactId;
     }
