@@ -73,6 +73,8 @@ class ContactController extends Controller
     {
         ProcessContactScoreJob::dispatch($id);
         $contact = app(\App\Domain\Repositories\ContactRepositoryInterface::class)->findById($id);
-        return new ContactResource($contact);
+        return (new ContactResource($contact))
+            ->response()
+            ->setStatusCode(202);
     }
 }
