@@ -11,7 +11,7 @@ class LogContactScoreProcessed
     {
         $contact = $event->contact;
 
-        Log::channel('daily')->info('Contact processed', [
+        Log::info('Contact processed', [
             'id'     => $contact->id,
             'email'  => (string) $contact->email,
             'score'  => $contact->score,
