@@ -62,4 +62,75 @@ No `config/logging.php`:
         'level' => 'info',
     ],
 ],
+<<<<<<< HEAD
 
+=======
+```
+No `Listener`
+
+```php
+Log::channel('contact')->info('Contact processed', [...]);
+```
+### Queue & Broadcast
+
+No `.env.example
+```
+QUEUE_CONNECTION=redis
+BROADCAST_DRIVER=reverb
+```
+## Exemplo de Frontend
+
+```
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Escuta de Contact Score</title>
+  <script src="https://unpkg.com/@laravel/reverb-js"></script>
+</head>
+<body>
+  <h1>Escutando atualização de contato</h1>
+  <div id="output"></div>
+
+  <script>
+    const reverb = new Reverb({
+      host: "http://localhost:8080", // ajuste conforme sua configuração
+      key: "app-key",                // chave definida no servidor
+    });
+
+    const contactId = 1; // exemplo
+    reverb.subscribe(`contacts.${contactId}`)
+      .listen("ContactScoreProcessed", (event) => {
+        document.getElementById("output").innerText =
+          `Contato atualizado: ID=${event.id}, Score=${event.score}, Status=${event.status}`;
+      });
+  </script>
+</body>
+</html>
+```
+## 🧪 Como executar em ambiente de teste
+
+1. **Instale dependências:**
+   ```bash
+   composer install
+   npm install
+
+2. **Rode as migrations:**
+   ```bash
+   php artisan migrate
+
+3. **Inicie fila e servidor**
+ ```bash
+    php artisan queue:work
+    php artisan serve
+```
+4. **Inicie fila e servidor**
+    ```bash
+       php artisan test
+
+   
+
+
+
+
+>>>>>>> bf70030f0dfde1d700a80bd70bcbfdd333d9e442
