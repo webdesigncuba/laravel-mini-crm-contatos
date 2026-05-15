@@ -6,6 +6,7 @@ use App\Application\UseCases\CreateContactUseCase;
 use App\Application\UseCases\UpdateContactUseCase;
 use App\Domain\Repositories\ContactRepositoryInterface;
 use App\Infrastructure\Http\Requests\ContactRequest;
+use App\Infrastructure\Http\Requests\ProcessContactScoreRequest;
 use App\Infrastructure\Http\Controllers\Controller;
 use App\Infrastructure\Jobs\ProcessContactScoreJob;
 use App\Infrastructure\Http\Resources\ContactResource;
@@ -68,13 +69,10 @@ class ContactController extends Controller
         return response()->json(null, 204);
     }
 
-    public function processScore(int $id)
+    public function processScore(ProcessContactScoreRequest $request, int $id)
     {
         ProcessContactScoreJob::dispatch($id);
-
-        return response()->json([
-            'message' => 'Processamento encolado',
-        ], 202);
+        $contact = app(\App\Domain\Repositories\ContactRepositoryInterface::class)->findById($id);
+        return new ContactResource($contact);
     }
-
 }
